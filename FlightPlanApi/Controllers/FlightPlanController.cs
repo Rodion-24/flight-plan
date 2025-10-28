@@ -20,6 +20,7 @@ namespace FlightPlanApi.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> FlightPlanList()
         {
             var flightPlanList = await _database.GetAllFlightPlans();
@@ -32,6 +33,7 @@ namespace FlightPlanApi.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [Route("{flightPlanId}")]
         public async Task<IActionResult> GetFlightFlightPlanById(string flightPlanId)
         {
@@ -45,6 +47,7 @@ namespace FlightPlanApi.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("file")]
         public async Task<IActionResult> FileFlightPlan(FlightPlan flightPlan)
         {
@@ -61,6 +64,7 @@ namespace FlightPlanApi.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public async Task<IActionResult> UpdateFlightPlan(FlightPlan flightPlan)
         {
             var updateResult = await _database.UpdateFlightPlan(flightPlan.FlightPlanId, flightPlan);
@@ -76,6 +80,7 @@ namespace FlightPlanApi.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("{flightPlanId}")]
         public async Task<IActionResult> DeleteFlightPlan(string flightPlanId)
         {
@@ -89,6 +94,7 @@ namespace FlightPlanApi.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [Route("airport/departure/{flightPlanId}")]
         public async Task<IActionResult> GetFlightPlanDepartureAirport(string flightPlanId)
         {
@@ -103,6 +109,7 @@ namespace FlightPlanApi.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [Route("route/{flightPlanId}")]
         public async Task<IActionResult> GetFlightPlanRoute(string flightPlanId)
         {
@@ -116,6 +123,7 @@ namespace FlightPlanApi.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [Route("time/enroute/{flightPlanId}")]
         public async Task<IActionResult> GetFlightPlanTimeEnroute(string flightPlanId)
         {
