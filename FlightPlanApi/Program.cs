@@ -49,8 +49,12 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 builder.Services.AddCors();
-builder.Services.AddAuthentication("BasicAuthentication")
-    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = "BasicAuthentication";
+    options.DefaultChallengeScheme = "BasicAuthentication";
+})
+.AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 builder.Services.AddScoped<IDatabaseAdapter, MongoDbDatabase>();
 
 var app = builder.Build();
@@ -69,8 +73,7 @@ app.UseCors(config =>
     .AllowAnyHeader();
 });
 
-app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
